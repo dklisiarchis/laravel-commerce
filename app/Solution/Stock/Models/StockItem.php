@@ -1,12 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Solution\Stock\Models;
 
-use App\Solution\Catalog\Models\Product;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Solution\Catalog\Models\Product;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @property int $id
@@ -15,7 +16,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class StockItem extends Model
 {
-
     use HasFactory;
 
     protected $table = 'catalog_stock_item';
@@ -27,9 +27,6 @@ class StockItem extends Model
 
     public $timestamps = false;
 
-    /**
-     * @return HasOne
-     */
     public function product(): HasOne
     {
         return $this->hasOne(Product::class);
