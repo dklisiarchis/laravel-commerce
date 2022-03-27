@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Solution\User\Models\Address;
-use App\Solution\User\Models\User;
 use Illuminate\Database\Seeder;
+use App\Solution\User\Models\User;
+use App\Solution\User\Models\Address;
 
 class UserSeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; ++$i) {
             $user = User::factory()->create();
             Address::factory(['default_shipping' => true])
                 ->for($user)

@@ -1,9 +1,8 @@
 <?php
 
-use App\Solution\Catalog\Controller\CatalogController;
-use App\Solution\User\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Solution\User\Controllers\UserController;
+use App\Solution\Catalog\Controller\CatalogController;
 
 /*
 |--------------------------------------------------------------------------

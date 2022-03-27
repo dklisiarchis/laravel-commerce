@@ -1,15 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Solution\User\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Solution\User\Services\UserRepository;
-use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
-
     /**
      * @var UserRepository
      */
@@ -21,15 +21,13 @@ class UserController extends Controller
     }
 
     /**
-     * Show the profile for current user
-     *
-     * @param int $id
-     * @return JsonResponse
+     * Show the profile for current user.
      */
     public function show(int $id): JsonResponse
     {
         $user = $this->userRepository->getById($id);
-        $responseData = $user === null ? [] : $user->toArray();
+        $responseData = null === $user ? [] : $user->toArray();
+
         return response()->json($responseData);
     }
 }

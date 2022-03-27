@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Solution\User\Services;
@@ -8,7 +9,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserRepository
 {
-
     public function getById(int $userId): ?User
     {
         return User::findOrFail($userId);

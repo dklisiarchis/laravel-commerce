@@ -1,23 +1,24 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Solution\User\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * @property int $id
- * @property string $first_name
- * @property string $last_name
- * @property string $country_id
- * @property string $street
- * @property string $addition
- * @property string $postcode
- * @property string $telephone
- * @property boolean $default_shipping
- * @property boolean $default_billing
+ * @property int      $id
+ * @property string   $first_name
+ * @property string   $last_name
+ * @property string   $country_id
+ * @property string   $street
+ * @property string   $addition
+ * @property string   $postcode
+ * @property string   $telephone
+ * @property bool     $default_shipping
+ * @property bool     $default_billing
  * @property int|null $user_id
  */
 class Address extends Model
@@ -25,7 +26,8 @@ class Address extends Model
     use HasFactory;
 
     /**
-     * DB table
+     * DB table.
+     *
      * @var string
      */
     protected $table = 'user_address';
@@ -41,21 +43,18 @@ class Address extends Model
      * @var array
      */
     protected $attributes = [
-        'user_id' => null,
-        'first_name' => '',
-        'last_name' => '',
-        'country_id' => '',
-        'street' => '',
-        'addition' => '',
-        'postcode' => '',
-        'telephone' => '',
+        'user_id'          => null,
+        'first_name'       => '',
+        'last_name'        => '',
+        'country_id'       => '',
+        'street'           => '',
+        'addition'         => '',
+        'postcode'         => '',
+        'telephone'        => '',
         'default_shipping' => false,
-        'default_billing' => false
+        'default_billing'  => false,
     ];
 
-    /**
-     * @return BelongsTo
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

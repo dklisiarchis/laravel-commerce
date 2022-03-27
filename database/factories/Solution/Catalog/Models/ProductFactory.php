@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Database\Factories\Solution\Catalog\Models;
@@ -8,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
 {
-
     protected $model = Product::class;
 
     /**
@@ -19,8 +19,8 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->text(10),
-            'sku' => $this->faker->unique()->uuid(),
+            'name'  => $this->faker->unique()->text(10),
+            'sku'   => $this->faker->unique()->uuid(),
             'price' => $this->faker->randomFloat(2, 5, 500),
         ];
     }
