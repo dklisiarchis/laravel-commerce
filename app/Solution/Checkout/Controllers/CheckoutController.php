@@ -74,10 +74,11 @@ class CheckoutController extends Controller
 
         /** @var User $newUser */
         $newUser = User::factory([
-            'name'     => $request->input('name'),
+            'name'     => sprintf('%s %s', $request->input('first_name'), $request->input('last_name')),
             'email'    => $requestEmail,
             'password' => $request->input('password'),
-        ])->make()->save();
+        ])->make();
+        $newUser->save();
 
         return $newUser;
     }
