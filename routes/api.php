@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Solution\User\Controllers\UserController;
 use App\Solution\Catalog\Controller\CatalogController;
+use App\Solution\Checkout\Controllers\CartController;
+use App\Solution\Checkout\Controllers\CheckoutController;
+use App\Solution\User\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,11 @@ Route::get('/users/{id}', [UserController::class, 'show']);
 
 // Catalog
 Route::get('/catalog', [CatalogController::class, 'getList']);
+
+// Cart
+Route::get('/cart/{id}', [CartController::class, 'show']);
+Route::post('/cart/add', [CartController::class, 'add']);
+Route::post('/cart/update', [CartController::class, 'update']);
+
+// Checkout
+Route::post('/orders/place', [CheckoutController::class, 'placeOrder']);

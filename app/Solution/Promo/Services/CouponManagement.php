@@ -51,15 +51,13 @@ class CouponManagement
 
     public function invalidate(string $couponCode): void
     {
-        $coupon = $this->couponRepository->getByCode($couponCode);
-        $coupon->valid = false;
-        $coupon->save();
+        // @TODO cancel or delete the coupon
     }
 
     public function generate(
         float $value,
         ?string $email = null,
-        $type = DiscountCoupon::TYPE_FIXED,
+        $type = DiscountCoupon::TYPE_FIXED
     ): DiscountCoupon {
         /** @var DiscountCoupon $coupon */
         $coupon = DiscountCoupon::factory([
