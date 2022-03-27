@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Solution\Promo\Services;
@@ -8,7 +9,6 @@ use App\Solution\Promo\Models\DiscountCoupon;
 
 class CouponManagement
 {
-
     private $couponRepository;
 
     public function __construct(?CouponRepository $couponRepository = null)
@@ -24,8 +24,8 @@ class CouponManagement
             $cartGrandTotal = $cart->grand_total;
             switch ($coupon->type) {
                 case DiscountCoupon::TYPE_FIXED:
-                    $newCartBaseTotal =- abs($coupon->value);
-                    $newCartGrandTotal =- abs($coupon->value);
+                    $newCartBaseTotal = -abs($coupon->value);
+                    $newCartGrandTotal = -abs($coupon->value);
                     break;
                 case DiscountCoupon::TYPE_PERCENT:
                     $newCartBaseTotal = $cartBaseTotal - ($cartBaseTotal * $coupon->value / 100);
@@ -42,6 +42,7 @@ class CouponManagement
             $cart->discount = $cartGrandTotal - $newCartGrandTotal;
             $cart->coupon_code = $coupon->code;
             $cart->save();
+
             return $cart;
         } catch (\Throwable $e) {
             return $cart;
@@ -62,11 +63,11 @@ class CouponManagement
     ): DiscountCoupon {
         /** @var DiscountCoupon $coupon */
         $coupon = DiscountCoupon::factory([
-            'code' => \Str::random(10),
+            'code'  => \Str::random(10),
             'email' => $email,
-            'type' => $type,
+            'type'  => $type,
             'value' => $value,
-            'valid' => true
+            'valid' => true,
         ])->make();
         $coupon->save();
 

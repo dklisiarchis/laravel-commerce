@@ -1,17 +1,18 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Solution\Promo\Mail;
 
-use App\Solution\Checkout\Models\Order;
-use App\Solution\Promo\Models\DiscountCoupon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Solution\Promo\Models\DiscountCoupon;
 
 class FirstOrderPromo extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * @var DiscountCoupon
@@ -19,7 +20,6 @@ class FirstOrderPromo extends Mailable
     public $discountCoupon;
 
     /**
-     * @param  DiscountCoupon $discountCoupon
      * @return void
      */
     public function __construct(DiscountCoupon $discountCoupon)

@@ -1,23 +1,22 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Solution\Promo\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- *
- * @property-read string $code
- * @property-read ?string $email
- * @property-read string $type
- * @property-read float $value
- * @property bool $valid
- * @property int $id
+ * @property string  $code
+ * @property ?string $email
+ * @property string  $type
+ * @property float   $value
+ * @property bool    $valid
+ * @property int     $id
  */
 class DiscountCoupon extends Model
 {
-
     use HasFactory;
 
     public const TYPE_PERCENT = 'percent';
@@ -26,11 +25,11 @@ class DiscountCoupon extends Model
     protected $table = 'coupons';
 
     protected $attributes = [
-        'code' => null,
+        'code'  => null,
         'email' => null,
-        'type' => self::TYPE_FIXED,
+        'type'  => self::TYPE_FIXED,
         'value' => 0,
-        'valid' => false
+        'valid' => false,
     ];
 
     protected $fillable = [
@@ -38,6 +37,6 @@ class DiscountCoupon extends Model
         'email',
         'type',
         'value',
-        'valid'
+        'valid',
     ];
 }

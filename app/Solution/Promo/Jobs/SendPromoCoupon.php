@@ -1,23 +1,26 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Solution\Promo\Jobs;
 
-use App\Solution\Checkout\Models\Order;
-use App\Solution\Promo\Mail\FirstOrderPromo;
-use App\Solution\Promo\Models\DiscountCoupon;
-use App\Solution\User\Models\Address;
+use Mail;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Queue\SerializesModels;
+use App\Solution\Checkout\Models\Order;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Mail;
+use App\Solution\Promo\Mail\FirstOrderPromo;
+use App\Solution\Promo\Models\DiscountCoupon;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 
 class SendPromoCoupon implements ShouldQueue, ShouldBeUnique
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * @var DiscountCoupon
@@ -38,8 +41,6 @@ class SendPromoCoupon implements ShouldQueue, ShouldBeUnique
 
     /**
      * The unique ID of the job.
-     *
-     * @return string
      */
     public function uniqueId(): string
     {

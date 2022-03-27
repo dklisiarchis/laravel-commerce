@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Solution\Promo\Models\DiscountCoupon;
 use Illuminate\Database\Seeder;
+use App\Solution\Promo\Models\DiscountCoupon;
 
 class DiscountCouponSeeder extends Seeder
 {
@@ -14,12 +14,12 @@ class DiscountCouponSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i < 11; $i++) {
+        for ($i = 1; $i < 11; ++$i) {
             DiscountCoupon::factory([
-                'code' => 'coupon_' . $i,
-                'type' => ($i % 2 === 0) ? DiscountCoupon::TYPE_PERCENT : DiscountCoupon::TYPE_FIXED,
+                'code'  => 'coupon_'.$i,
+                'type'  => (0 === $i % 2) ? DiscountCoupon::TYPE_PERCENT : DiscountCoupon::TYPE_FIXED,
                 'value' => $i * 2,
-                'valid' => true
+                'valid' => true,
             ])->create();
         }
     }
