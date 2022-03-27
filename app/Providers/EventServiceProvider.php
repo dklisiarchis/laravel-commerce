@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Solution\Checkout\Events\OrderPlaced;
+use App\Solution\Checkout\Listeners\SendPromoCoupon;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -27,5 +29,9 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Event::listen(
+            OrderPlaced::class,
+            [SendPromoCoupon::class, 'handle']
+        );
     }
 }
