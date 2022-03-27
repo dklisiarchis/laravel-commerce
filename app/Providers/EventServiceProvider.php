@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Solution\Checkout\Events\OrderPlaced;
-use App\Solution\Checkout\Listeners\SendPromoCoupon;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
+use App\Solution\Checkout\Events\OrderPlaced;
+use App\Solution\Checkout\Listeners\SendPromoCoupon;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 

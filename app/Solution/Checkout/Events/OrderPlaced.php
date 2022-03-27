@@ -1,16 +1,19 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Solution\Checkout\Events;
 
-use App\Solution\Checkout\Models\Order;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Solution\Checkout\Models\Order;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
 
 class OrderPlaced
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     /**
      * The order instance.
@@ -21,8 +24,6 @@ class OrderPlaced
 
     /**
      * Create a new event instance.
-     *
-     * @param Order $order
      */
     public function __construct(Order $order)
     {

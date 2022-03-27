@@ -1,18 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Solution\Checkout\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Solution\Checkout\Models\Cart;
 use App\Solution\Checkout\Services\CartManagement;
 use App\Solution\Checkout\Services\CartRepository;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-
     /**
      * @var CartManagement|null
      */
@@ -31,33 +30,24 @@ class CartController extends Controller
         $this->cartRepository = $cartRepository;
     }
 
-    /**
-     * @param int $cartId
-     * @return JsonResponse
-     */
     public function show(int $cartId): JsonResponse
     {
         $cart = $this->cartRepository->getById($cartId);
+
         return response()->json($cart->toArray());
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
     public function add(Request $request): JsonResponse
     {
         $cart = $this->cartManagement->handleAddRequest($request);
+
         return response()->json($cart->toArray());
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
     public function update(Request $request): JsonResponse
     {
         $cart = $this->cartManagement->handleUpdateRequest($request);
+
         return response()->json($cart->toArray());
     }
 }

@@ -1,16 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Solution\Checkout\Listeners;
 
-use App\Solution\Checkout\Events\OrderPlaced;
 use App\Solution\Checkout\Models\Order;
-use App\Solution\Promo\Jobs\SendPromoCoupon as SendPromoCouponJob;
+use App\Solution\Checkout\Events\OrderPlaced;
 use App\Solution\Promo\Services\CouponManagement;
+use App\Solution\Promo\Jobs\SendPromoCoupon as SendPromoCouponJob;
 
 class SendPromoCoupon
 {
-
     private $couponManagement;
 
     /**
@@ -23,10 +23,6 @@ class SendPromoCoupon
         $this->couponManagement = $couponManagement;
     }
 
-    /**
-     * @param  OrderPlaced $event
-     * @return void
-     */
     public function handle(OrderPlaced $event): void
     {
         SendPromoCouponJob::dispatchIf(

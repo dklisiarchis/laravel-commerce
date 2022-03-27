@@ -1,17 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Solution\Checkout\Services;
 
+use Illuminate\Http\Request;
 use InvalidArgumentException;
 use App\Solution\Checkout\Models\Cart;
 use App\Solution\Checkout\Models\CartItem;
 use App\Solution\Stock\Services\StockService;
-use Illuminate\Http\Request;
 
 class CartManagement
 {
-
     /**
      * @var StockService
      */
@@ -27,11 +27,6 @@ class CartManagement
      */
     private $cartRepository;
 
-    /**
-     * @param StockService|null $stockService
-     * @param RowTotalCalculator|null $rowCalculator
-     * @param CartRepository|null $cartRepository
-     */
     public function __construct(
         ?StockService $stockService = null,
         ?RowTotalCalculator $rowCalculator = null,
@@ -42,14 +37,10 @@ class CartManagement
         $this->cartRepository = $cartRepository ?? new CartRepository();
     }
 
-    /**
-     * @param Request $request
-     * @return Cart
-     */
     public function handleAddRequest(Request $request): Cart
     {
         $requestCartId = $request->input('cart_id');
-        if (!$requestCartId) {
+        if (! $requestCartId) {
             $cart = Cart::factory()->make();
             $cart->save();
         } else {
@@ -58,35 +49,27 @@ class CartManagement
 
         $qty = $request->input('qty', 1);
         $product = $request->input('product_id');
+
         return $this->add($cart->id, $product, $qty);
     }
 
-    /**
-     * @param Request $request
-     * @return Cart
-     */
     public function handleUpdateRequest(Request $request): Cart
     {
         $requestCartId = $request->input('cart_id');
-        if (!$requestCartId) {
+        if (! $requestCartId) {
             throw new InvalidArgumentException('Missing cart id');
         }
 
         $product = $request->input('product_id');
-        if (!$product) {
+        if (! $product) {
             throw new InvalidArgumentException('Missing product id');
         }
 
         $qty = $request->input('qty', 0);
+
         return $this->updateQty($requestCartId, $product, $qty);
     }
 
-    /**
-     * @param int $cartId
-     * @param int $productId
-     * @param int $qty
-     * @return Cart
-     */
     public function add(int $cartId, int $productId, int $qty): Cart
     {
         $this->checkStock($productId, $qty);
@@ -101,28 +84,23 @@ class CartManagement
             $cartItem->row_total = $this->rowCalculator->calculate($productId, $totalQty);
         } else {
             $cartItem = CartItem::factory([
-                'cart_id' => $cart->id,
+                'cart_id'    => $cart->id,
                 'product_id' => $productId,
-                'qty' => $qty,
-                'row_total' => $this->rowCalculator->calculate($productId, $qty)
+                'qty'        => $qty,
+                'row_total'  => $this->rowCalculator->calculate($productId, $qty),
             ])->make();
         }
 
         $cartItem->save();
+
         return $this->updateTotals($cart->id);
     }
 
-    /**
-     * @param int $cartId
-     * @param int $productId
-     * @param int $qty
-     * @return Cart
-     */
     public function updateQty(int $cartId, int $productId, int $qty): Cart
     {
         $cart = $this->loadCart($cartId);
         $cartItem = $cart->getCartItem($productId);
-        if ($cartItem === null) {
+        if (null === $cartItem) {
             throw new \InvalidArgumentException('Item is not in cart');
         }
 
@@ -137,11 +115,6 @@ class CartManagement
         return $this->updateTotals($cartId);
     }
 
-    /**
-     * @param int $cartId
-     * @param bool $save
-     * @return Cart
-     */
     public function updateTotals(int $cartId, bool $save = true): Cart
     {
         $cart = $this->loadCart($cartId);
@@ -164,10 +137,6 @@ class CartManagement
         return $cart;
     }
 
-    /**
-     * @param int $cartId
-     * @return Cart
-     */
     private function loadCart(int $cartId): Cart
     {
         return Cart::where(['id' => $cartId, 'is_active' => true])->firstOr(function () {
@@ -175,14 +144,9 @@ class CartManagement
         });
     }
 
-    /**
-     * @param int $productId
-     * @param int $qty
-     * @return void
-     */
     private function checkStock(int $productId, int $qty): void
     {
-        if (!$this->stockService->hasEnoughStock($productId, $qty)) {
+        if (! $this->stockService->hasEnoughStock($productId, $qty)) {
             throw new \InvalidArgumentException('Requested quantity is not available');
         }
     }
