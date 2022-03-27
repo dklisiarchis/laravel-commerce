@@ -1,5 +1,7 @@
 <?php
 
+use App\Solution\Catalog\Controller\CatalogController;
+use App\Solution\User\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Users
+Route::get('/users/{id}', [UserController::class, 'show']);
+
+// Catalog
+Route::get('/catalog', [CatalogController::class, 'getList']);
